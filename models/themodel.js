@@ -9,4 +9,10 @@ var User = new mongoose.Schema({
     phone: Number
 });
 
+var Question = new mongoose.Schema({
+    _Id: String,
+    hint: String
+});
+
 mongoose.model('Users', User);
+mongoose.model('Questions', Question);

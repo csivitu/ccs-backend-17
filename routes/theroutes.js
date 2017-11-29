@@ -1,23 +1,33 @@
 'use strict';
 module.exports = function(app) {
-  var todoList = require('../controllers/thecontroller');
+  var dacontroller = require('../controllers/thecontroller');
 
-  // todoList Routes
+  // dacontroller Routes
   app.route('/users')
-    .get(todoList.users)
-    .post(todoList.adduser);
+    .get(dacontroller.users)
+    .post(dacontroller.adduser);
 
 
   app.route('/users/:userId')
-    .get(todoList.showuser)
-    .put(todoList.updateuser)
-    .delete(todoList.removeuser);
+    .get(dacontroller.showuser)
+    .put(dacontroller.updateuser)
+    .delete(dacontroller.removeuser);
 
 
 
   app.get('/', function(req, res) {
       res.send('Hello! The API is at http://localhost:3000');
    });
+
+  app.route('questions/:category')
+   .get(dacontroller.questions)
+   .post(dacontroller.addquestion);
+  
+  app.route('questions/:questionId')
+   .get(dacontroller.showquestion)
+   .put(dacontroller.updatequestion)
+   .delete(dacontroller.deletequestion);
+   
 
    
 };
