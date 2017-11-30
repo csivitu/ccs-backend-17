@@ -7,7 +7,7 @@ bodyParser = require('body-parser');
 
 // // mongoose instance connection url connection
 // mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost/Tododb'); 
+ mongoose.connect('mongodb://csi_admin:acoolpassword@ds123896.mlab.com:23896/ccs-csi'); 
 
 
 app.use(bodyParser.urlencoded({ extended: true }));

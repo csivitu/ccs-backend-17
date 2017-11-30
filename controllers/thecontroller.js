@@ -22,7 +22,7 @@ exports.adduser = function(req, res) {
 };
 
 exports.showuser = function(req, res) {
-    User.findById(req.params.userId,function(err, user) {
+    Users.findById(req.params.userId,function(err, user) {
       if (err)
         res.send(err);
       res.json(user);
@@ -30,7 +30,7 @@ exports.showuser = function(req, res) {
 };
 
 exports.questions = function(req, res) {
-  User.findById(req.params.category,function(err, questions) {
+  Questions.find({ $where: category==req.params.category},function(err, questions) {
     if (err)
       res.send(err);
     res.json(questions);
@@ -47,7 +47,7 @@ exports.addquestion = function(req, res) {
 };
 
 exports.showquestion = function(req, res) {
-  User.findById(req.params.questionId,function(err, question) {
+  Questions.findById(req.params.questionId,function(err, question) {
     if (err)
       res.send(err);
     res.json(question);
@@ -55,7 +55,7 @@ exports.showquestion = function(req, res) {
 };
 
 exports.updateuser = function(req, res) {
-    User.findOneAndUpdate({_id: req.params.userId}, req.name, req.username, req.userpwd, req.regno, req.email, req.phone, {new: true}, function(err, user) {
+    Users.findUserAndUpdate({_id: req.params.userId}, req.name, req.username, req.userpwd, req.regno, req.email, req.phone, {new: true}, function(err, user) {
       if (err)
         res.send(err);
       res.json(user);
@@ -63,7 +63,7 @@ exports.updateuser = function(req, res) {
   };
 
   exports.updatequestion = function(req, res) {
-    User.findOneAndUpdate({_id: req.params.questionId}, req.category, {new: true}, function(err, question) {
+    Users.findQuesAndUpdate({_id: req.params.questionId}, req.category, req.hint, req.body, {new: true}, function(err, question) {
       if (err)
         res.send(err);
       res.json(question);
@@ -71,7 +71,7 @@ exports.updateuser = function(req, res) {
   };
 
   exports.removequestion = function(req, res) {
-      User.remove({
+      Questions.remove({
         _id: req.params.questionId
       }, function(err, user) {
         if (err)
@@ -100,7 +100,7 @@ exports.adduser = function(req, res) {
 };
 
 exports.showuser = function(req, res) {
-    User.findById(req.params.userId,function(err, user) {
+    Users.findById(req.params.userId,function(err, user) {
       if (err)
         res.send(err);
       res.json(user);
@@ -108,7 +108,7 @@ exports.showuser = function(req, res) {
 };
 
 exports.updateuser = function(req, res) {
-    User.findOneAndUpdate({_id: req.params.userId}, req.name, req.username, req.userpwd, req.regno, req.email, req.phone, {new: true}, function(err, user) {
+    Users.findOneAndUpdate({_id: req.params.userId}, req.name, req.username, req.userpwd, req.regno, req.email, req.phone, {new: true}, function(err, user) {
       if (err)
         res.send(err);
       res.json(user);
@@ -116,7 +116,7 @@ exports.updateuser = function(req, res) {
   };
 
   exports.removeuser = function(req, res) {
-      User.remove({
+      Users.remove({
         _id: req.params.userId
       }, function(err, user) {
         if (err)

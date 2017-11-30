@@ -26,7 +26,7 @@ module.exports = function(app) {
   app.route('questions/:questionId')
    .get(dacontroller.showquestion)
    .put(dacontroller.updatequestion)
-   .delete(dacontroller.deletequestion);
+   .delete(dacontroller.removequestion);
    
 
    
