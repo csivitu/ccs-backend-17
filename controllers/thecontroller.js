@@ -12,14 +12,6 @@ exports.users = function(req,res) {
     });
 };
 
-exports.adduser = function(req, res) {
-    var new_user = new User(req.name, req.username, req.userpwd, req.regno, req.email, req.phone);
-    new_user.save(function(err, user) {
-      if (err)
-        res.send(err);
-      res.json(user);
-    });
-};
 
 exports.showuser = function(req, res) {
     Users.findById(req.params.userId,function(err, user) {
@@ -30,7 +22,7 @@ exports.showuser = function(req, res) {
 };
 
 exports.questions = function(req, res) {
-  Questions.find({ $where: category==req.params.category},function(err, questions) {
+  Questions.find({ category:req.params.category},function(err, questions) {
     if (err)
       res.send(err);
     res.json(questions);
@@ -55,7 +47,7 @@ exports.showquestion = function(req, res) {
 };
 
 exports.updateuser = function(req, res) {
-    Users.findUserAndUpdate({_id: req.params.userId}, req.name, req.username, req.userpwd, req.regno, req.email, req.phone, {new: true}, function(err, user) {
+    Users.findUserAndUpdate({_id: req.params.userId}, req.name, req.userpwd, req.regno, req.email, req.phone, {new: true}, function(err, user) {
       if (err)
         res.send(err);
       res.json(user);
@@ -91,7 +83,15 @@ exports.updateuser = function(req, res) {
 };
 
 exports.adduser = function(req, res) {
-    var new_user = new User(req.name, req.username, req.userpwd, req.regno, req.email, req.phone);
+    var questions = [];
+    for(var i=0; i<10; i++)
+      var random = Math.floor((Math.random() * 20) + 1);
+      if(questions.includes(random))
+        i--;
+      else
+        questions.push(random);
+    
+    var new_user = new Users(req.name, req.userpwd, req.regno, req.email, req.phone, questions);
     new_user.save(function(err, user) {
       if (err)
         res.send(err);
@@ -126,5 +126,3 @@ exports.updateuser = function(req, res) {
 
       
     };
-
-            
